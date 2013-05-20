@@ -3,6 +3,8 @@ package eu.tykki
 import scala.io.Source
 import org.slf4j.LoggerFactory
 import java.io.FileNotFoundException
+import java.nio.FloatBuffer
+import org.lwjgl.BufferUtils
 
 object Utils {
   val logger = LoggerFactory.getLogger(getClass)
@@ -24,4 +26,14 @@ object Utils {
     }
     Source.fromInputStream(resourceStream).mkString
   }
+
+  def getTimeInMS: Long = System.nanoTime() / 1000000
+
+  def floatArrayToBuffer(array: Array[Float]): FloatBuffer = {
+    val buffer = BufferUtils.createFloatBuffer(array.length)
+    buffer.put(array)
+    buffer.flip()
+    buffer
+  }
+
 }
